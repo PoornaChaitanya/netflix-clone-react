@@ -1,0 +1,36 @@
+.player {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 0;
+}
+
+.player img {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.player iframe {
+  width: min(1000px, 90vw);
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border-radius: 10px;
+}
+
+.player-empty {
+  color: #b3b3b3;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
