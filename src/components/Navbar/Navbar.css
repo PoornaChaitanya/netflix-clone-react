@@ -3,6 +3,7 @@
   padding: 20px 6%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
   font-size: 14px;
   color: #e5e5e5;
@@ -11,9 +12,17 @@
     rgba(0, 0, 0, 0.7) 10%,
     transparent
   );
-  z-index: 1;
+  z-index: 100;
   backdrop-filter: blur(10px);
+  transition: background 0.3s ease;
 }
+
+/* Dark mode when scrolled */
+.nav-dark {
+  background: #141414;
+}
+
+/* ================= LEFT ================= */
 
 .navbar-left {
   display: flex;
@@ -21,19 +30,85 @@
   gap: 50px;
 }
 
-.navbar-left img {
+.logo {
   width: 90px;
+  cursor: pointer;
 }
 
 .navbar-left ul {
   display: flex;
-  list-style-type: none;
-  gap: 20px;
+  list-style: none;
+  gap: 22px;
+  align-items: center;
 }
 
-.navbar-left ul li {
+/* Links */
+.nav-link {
+  color: #e5e5e5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #b3b3b3;
+}
+
+/* Active link */
+.nav-link.active {
+  color: white;
+  font-weight: 600;
+}
+
+/* ================= LANGUAGE DROPDOWN ================= */
+
+.language-dropdown {
+  position: relative;
   cursor: pointer;
 }
+
+.language-dropdown span {
+  transition: color 0.3s ease;
+}
+
+.language-dropdown:hover span {
+  color: #b3b3b3;
+}
+
+.language-menu {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: #191919;
+  padding: 10px 0;
+  border-radius: 4px;
+  min-width: 140px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.language-menu button {
+  background: none;
+  border: none;
+  color: #e5e5e5;
+  padding: 8px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s ease;
+}
+
+.language-menu button:hover {
+  background: #333;
+}
+
+/* Show dropdown */
+.language-dropdown:hover .language-menu {
+  display: flex;
+}
+
+/* ================= RIGHT ================= */
 
 .navbar-right {
   display: flex;
@@ -41,12 +116,17 @@
   align-items: center;
 }
 
-.navbar-right .icons {
+.icons {
   width: 20px;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.navbar-right .profile {
+.icons:hover {
+  transform: scale(1.1);
+}
+
+.profile {
   border-radius: 4px;
   width: 35px;
 }
@@ -54,33 +134,41 @@
 .navbar-profile {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
   position: relative;
 }
 
-.navbar .dropdown {
+/* Profile Dropdown */
+.dropdown {
   position: absolute;
-  top: 100%;
+  top: 120%;
   right: 0;
-  width: max-content;
   background: #191919;
-  padding: 18px 22px;
-  border-radius: 2px;
-  text-decoration: underline;
-  z-index: 1;
+  padding: 10px 0;
+  border-radius: 4px;
+  min-width: 120px;
   display: none;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-.navbar .dropdown p {
-  font-size: 13px;
+.dropdown button {
+  background: none;
+  border: none;
+  color: #e5e5e5;
+  padding: 8px 16px;
+  text-align: left;
   cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s ease;
 }
 
+.dropdown button:hover {
+  background: #333;
+}
+
+/* Show dropdown */
 .navbar-profile:hover .dropdown {
-  display: block;
-}
-
-.nav-dark {
-  background: #141414;
+  display: flex;
 }

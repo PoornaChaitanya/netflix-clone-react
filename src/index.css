@@ -1,4 +1,41 @@
-@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/NetflixSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/NetflixSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/NetflixSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  src: url("./assets/fonts/NetflixSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Fix Chrome Autofill Background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(22, 22, 22, 0.8) inset !important;
+  box-shadow: 0 0 0 1000px rgba(22, 22, 22, 0.8) inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
 
 * {
   margin: 0;
@@ -9,9 +46,19 @@
 body {
   background: black;
   color: white;
-  font-family: "Poppins", sans-serif;
+  font-family: "Netflix Sans", sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+.page-loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #141414;
+  color: white;
+  font-size: 20px;
 }

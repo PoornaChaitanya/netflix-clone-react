@@ -3,11 +3,13 @@ import "./Login.css";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import netflix_spinner from "../../assets/netflix_spinner.gif";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [signState, setSignState] = useState("Sign In");
   const [loading, setLoading] = useState(false);
   const timeoutRef = useRef(null);
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ const Login = () => {
                 }
                 setLoading(true);
                 timeoutRef.current = setTimeout(() => {
+                  login();
                   navigate("/home");
                 }, 1200);
               }}

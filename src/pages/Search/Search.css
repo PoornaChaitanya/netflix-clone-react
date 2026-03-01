@@ -1,0 +1,90 @@
+.search-page {
+  min-height: 100vh;
+  background: #141414;
+  color: white;
+}
+
+.search-container {
+  padding: 120px 60px 40px;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px 20px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: #222;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+.search-result-text {
+  margin-bottom: 20px;
+  color: #bbb;
+  font-weight: 400;
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.search-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.search-card img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+}
+
+.search-card:hover {
+  transform: scale(1.05);
+}
+
+.search-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.search-overlay h4 {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.search-overlay p {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.search-placeholder {
+  margin-top: 20px;
+  color: #888;
+  font-size: 16px;
+}
+
+.search-status {
+  margin-top: 20px;
+  color: #bbb;
+}
+
+.search-error {
+  margin-top: 20px;
+  color: #ff4c4c;
+}

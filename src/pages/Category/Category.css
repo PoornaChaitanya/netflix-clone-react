@@ -1,0 +1,56 @@
+.category-page {
+  min-height: 100vh;
+  background: #141414;
+  color: white;
+}
+
+.category-container {
+  padding: 120px 60px;
+}
+
+.category-container h1 {
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.category-card,
+.category-card:visited,
+.category-card:active {
+  color: white;
+  text-decoration: none;
+}
+
+.category-card img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.category-overlay h4 {
+  font-size: 14px;
+}

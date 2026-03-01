@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import "./Player.css";
 import back_arrow_icon from "../../assets/back_arrow_icon.png";
 import { useNavigate, useParams } from "react-router-dom";
+import { getMovieVideos } from "../../services/tmdb";
 
 const Player = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [apiData, setApiData] = useState({
-    name: "",
-    key: "",
-    published_at: "",
-    type: "",
-  });
+  const [videoData, setVideoData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -23,52 +20,52 @@ const Player = () => {
   };
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
-      },
-    };
+    setLoading(true);
 
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-      options,
-    )
-      .then((res) => res.json())
+    getMovieVideos(id)
       .then((res) => {
-        const first = Array.isArray(res.results) ? res.results[0] : null;
-        setApiData(
-          first || {
-            name: "",
-            key: "",
-            published_at: "",
-            type: "",
-          },
-        );
+        const trailer = res.results?.find((video) => video.type === "Trailer");
+
+        setVideoData(trailer || null);
+        setLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch(() => {
+        setVideoData(null);
+        setLoading(false);
+      });
   }, [id]);
 
   return (
     <div className="player">
-      <img src={back_arrow_icon} alt="back arrow" onClick={handleBack} />
-      {apiData.key ? (
-        <iframe
-          src={`https://www.youtube.com/embed/${apiData.key}`}
-          title="trailer"
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
-      ) : (
-        <p className="player-empty">Trailer unavailable.</p>
+      <img
+        src={back_arrow_icon}
+        alt="back arrow"
+        onClick={handleBack}
+        className="back-btn"
+      />
+
+      {loading && <p className="player-loading">Loading trailer...</p>}
+
+      {!loading && videoData?.key && (
+        <>
+          <iframe
+            src={`https://www.youtube.com/embed/${videoData.key}`}
+            title="trailer"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+
+          <div className="player-info">
+            <p>{videoData.published_at?.slice(0, 10)}</p>
+            <p>{videoData.name}</p>
+            <p>{videoData.type}</p>
+          </div>
+        </>
       )}
 
-      <div className="player-info">
-        <p>{apiData.published_at?.slice(0, 10)}</p>
-        <p>{apiData.name}</p>
-        <p>{apiData.type}</p>
-      </div>
+      {!loading && !videoData && (
+        <p className="player-empty">Trailer unavailable.</p>
+      )}
     </div>
   );
 };

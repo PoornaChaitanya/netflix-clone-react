@@ -34,3 +34,8 @@
   justify-content: space-between;
   width: 90%;
 }
+
+.player-loading {
+  color: white;
+  margin-top: 100px;
+}

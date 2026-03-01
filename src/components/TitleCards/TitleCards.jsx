@@ -1,62 +1,70 @@
 import { useEffect, useRef, useState } from "react";
 import "./TitleCards.css";
 import { Link } from "react-router-dom";
+import { getMoviesByCategory } from "../../services/tmdb";
+import { useWatchlist } from "../../context/WatchlistContext";
 
 const TitleCards = ({ title, category }) => {
   const [apiData, setApiData] = useState([]);
-  const cardsRef = useRef();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const handleWheel = (event) => {
-    event.preventDefault();
-
-    cardsRef.current.scrollLeft += event.deltaY;
-  };
+  const cardsRef = useRef(null);
+  const { addToWatchlist } = useWatchlist();
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
-      },
-    };
+    setLoading(true);
+    setError(false);
 
-    fetch(
-      `https://api.themoviedb.org/3/movie/${category || "now_playing"}?language=en-US&page=1`,
-      options,
-    )
-      .then((res) => res.json())
-      .then((res) => setApiData(Array.isArray(res.results) ? res.results : []))
-      .catch((err) => console.error(err));
-
-    const currentRef = cardsRef.current;
-
-    if (currentRef) {
-      currentRef.addEventListener("wheel", handleWheel, { passive: false });
-    }
-
-    return () => {
-      if (currentRef) {
-        currentRef.removeEventListener("wheel", handleWheel, { passive: false });
-      }
-    };
+    getMoviesByCategory(category || "now_playing")
+      .then((res) => {
+        setApiData(res.results || []);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError(true);
+        setLoading(false);
+      });
   }, [category]);
 
   return (
     <div className="title-cards">
-      <h2>{title ? title : "Popular on Netflix"}</h2>
-      <div className="card-list" ref={cardsRef}>
-        {apiData.map((card) => {
-          return (
-            <Link to={`/player/${card.id}`} className="card" key={card.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500` + card.backdrop_path}
-                alt="movie poster"
-              />
-              <p>{card.original_title}</p>
-            </Link>
-          );
-        })}
+      <h2>{title || "Popular on Netflix"}</h2>
+
+      <div
+        className="card-list"
+        ref={cardsRef}
+        onWheel={(e) => {
+          e.preventDefault();
+          if (cardsRef.current) {
+            cardsRef.current.scrollLeft += e.deltaY;
+          }
+        }}
+      >
+        {loading &&
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="skeleton-card" />
+          ))}
+
+        {error && <p className="error-text">Failed to load movies.</p>}
+
+        {!loading &&
+          !error &&
+          apiData.map(
+            (card) =>
+              card.backdrop_path && (
+                <div className="card-wrapper" key={card.id}>
+                  <Link to={`/player/${card.id}`} className="card">
+                    <img
+                      loading="lazy"
+                      src={`https://image.tmdb.org/t/p/w300${card.backdrop_path}`}
+                      alt={card.original_title}
+                    />
+                    <p>{card.original_title}</p>
+                  </Link>
+                </div>
+              ),
+          )}
       </div>
     </div>
   );
