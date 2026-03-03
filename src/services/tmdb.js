@@ -29,6 +29,9 @@ export const getByTypeAndCategory = (type, category) =>
 export const getMovieVideos = (id) =>
   fetchFromTMDB(`movie/${id}/videos?language=en-US`);
 
+export const getMovieDetails = (id) =>
+  fetchFromTMDB(`movie/${id}?language=en-US`);
+
 export const searchMovies = (query) =>
   fetchFromTMDB(`search/movie?query=${query}&language=en-US&page=1`);
 

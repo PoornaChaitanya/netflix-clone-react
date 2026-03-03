@@ -25,7 +25,7 @@ const Login = () => {
     <div className={`login ${loading ? "login--loading" : ""}`}>
       {loading ? (
         <div className="login-loading-screen">
-          <img src={netflix_spinner} alt="Loading" />
+          <div className="spinner"></div>
         </div>
       ) : (
         <>
