@@ -14,18 +14,58 @@
 .footer-icons img {
   width: 30px;
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+  filter: brightness(0.8);
+}
+
+.footer-icons img:hover {
+  transform: scale(1.1);
+  filter: brightness(1);
 }
 
 .footer ul {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   margin-bottom: 30px;
   list-style: none;
+}
+
+.footer ul li {
+  color: #808080;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer ul li:hover {
+  color: white;
 }
 
 .copyright-text {
   color: gray;
   font-size: 14px;
   text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 4%;
+  }
+  .footer ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer ul li {
+    font-size: 12px;
+  }
 }
