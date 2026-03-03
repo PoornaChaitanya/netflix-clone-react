@@ -1,5 +1,4 @@
 import "./Footer.css";
-import EmailCTA from "./EmailCTA";
 
 const Footer = () => {
   return (
@@ -34,7 +33,6 @@ const Footer = () => {
 
       <select className="language-select footer-lang">
         <option>English</option>
-        <option>हिन्दी</option>
       </select>
 
       <p className="country">Netflix India</p>

@@ -1,81 +1,82 @@
 .landing-wrapper {
   background: black;
   color: white;
-  animation: fadeInPage 0.6s ease forwards;
+  min-height: 100vh;
+  animation: fadeInLanding 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .container {
-  max-width: 1220px;
   margin: 0 auto;
+  padding: 0 5%;
 }
 
-/* Purple Divider */
 .purple-divider {
   position: relative;
-  height: 100px;
+  height: 60px;
   background: black;
   overflow: hidden;
+  margin-top: -10px; 
+  z-index: 5;
 }
 
 .purple-divider::before {
   content: "";
   position: absolute;
-  top: 85%;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 160%;
-  height: 120px;
+  width: 140%;
+  height: 100px;
   border-radius: 50%;
-  background: linear-gradient(
-    90deg,
-    #ff0057 0%,
-    #e50914 30%,
-    #a100ff 70%,
-    #0047ff 100%
+  background: radial-gradient(
+    50% 50% at 50% 0%,
+    rgba(229, 9, 20, 0.4) 0%,
+    rgba(142, 11, 41, 0.4) 40%,
+    transparent 100%
   );
+  filter: blur(8px);
 }
 
 .purple-divider::after {
   content: "";
   position: absolute;
-  top: -50px;
+  top: 6px; 
   left: 50%;
   transform: translateX(-50%);
-  width: 160%;
-  height: 110px;
+  width: 140%;
+  height: 100px;
   border-radius: 50%;
-  background: black;
+  background: black; 
 }
 
-@keyframes fadeInPage {
-  from {
+@keyframes fadeInLanding {
+  0% {
     opacity: 0;
+    transform: scale(1.02);
   }
-  to {
+  100% {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* @media (max-width: 1340px) {
-  .container {
-    margin: 0 80px;
-  }
+/* Global utility for sections */
+.landing-section {
+  padding: 70px 0;
+  border-bottom: 8px solid #232323; 
 }
 
-@media (max-width: 1024px) {
-  .container {
-    margin: 0 60px;
-  }
+/* Base Typography for Landing Page */
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  .container {
-    margin: 0 40px;
-  }
+p {
+  line-height: 1.5;
+  color: #fff;
 }
-
-@media (max-width: 460px) {
-  .container {
-    margin: 0 20px;
-  }
-} */

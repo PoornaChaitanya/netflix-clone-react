@@ -1,63 +1,75 @@
-.features-section {
-  padding: 60px 0;
-}
-
 .features-section h2 {
-  margin-bottom: 20px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 30px;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .feature-card {
   background: linear-gradient(145deg, #1b1b3a, #141414);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 32px 24px 128px 24px;
+  padding: 32px 24px 100px 24px; /* Reduced bottom padding slightly to prevent squishing */
   border-radius: 16px;
   position: relative;
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
+  overflow: hidden; /* Added to clip anything escaping */
 }
 
 .feature-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .feature-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
+}
+
+.feature-content h3 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  margin-bottom: 0px;
+}
+
+.feature-content p {
+  color: #a3a3a3;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 }
 
 .feature-icon {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 24px;
+  right: 24px;
 }
 
 .feature-icon img {
-  height: 72px;
-  width: 72px;
+  height: clamp(48px, 6vw, 72px);
+  width: auto;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1024px) {
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .feature-card {
-    padding-bottom: 100px;
+    gap: 20px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .features-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
   }
-
   .feature-card {
-    padding-bottom: 100px;
+    padding: 24px 16px 80px 16px;
+  }
+  .feature-icon {
+    bottom: 16px;
+    right: 16px;
   }
 }

@@ -18,7 +18,6 @@ const Hero = () => {
           <div className="landing-nav-right">
             <select className="language-select">
               <option>English</option>
-              <option>हिन्दी</option>
             </select>
 
             <button className="signin-btn" onClick={() => navigate("/login")}>

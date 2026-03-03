@@ -1,69 +1,86 @@
-.faq-section {
-  padding: 60px 0;
+.faq-section{
+  padding: 60px 5%;
 }
 
 .faq-section h2 {
-  margin-bottom: 30px;
-  font-size: 32px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-align: left;
+  margin-bottom: 40px;
+  font-weight: 800;
+}
+
+.faq-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
 }
 
 .faq-item {
-  margin-bottom: 10px;
+  color: white;
+  border-radius: 0;
+  overflow: hidden;
   background: #2d2d2d;
   transition: background 0.3s ease;
 }
 
 .faq-item:hover {
-  background: #3a3a3a;
+  background: #414141;
 }
 
 .faq-question {
-  padding: 24px;
-  font-size: 24px;
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
-}
-
-.faq-answer-wrapper {
-  max-height: 0;
-  overflow: hidden;
-  transition:
-    max-height 0.4s ease,
-    opacity 0.3s ease;
-  opacity: 0;
-}
-
-.faq-answer-wrapper.open {
-  max-height: 500px;
-  opacity: 1;
-}
-
-.faq-answer {
+  align-items: center;
   padding: 24px;
-  font-size: 20px;
-  line-height: 1.8;
-  border-top: 1px solid black;
-  white-space: pre-line;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 400;
 }
 
 .plus {
+  font-size: 36px;
+  font-weight: 300;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.plus.rotate {
+  transform: rotate(45deg); 
+}
+
+/* Wrapper to hide the answer*/
+.faq-answer-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: transparent;
+}
+
+.faq-answer-wrapper.open {
+  max-height: 800px; /* arbitrary large value that contents will fit inside */
+  opacity: 1;
+}
+
+/* The actual text content inside the transitioned wrapper */
+.faq-answer {
+  padding: 24px;
   font-size: 24px;
-  transition: transform 0.3s ease;
+  line-height: 1.5;
+  background-color: #2d2d2d;
+  border-top: 1px solid black; /* The thin black line separating Q and A */
+  white-space: pre-line;
 }
 
-.rotate {
-  transform: rotate(45deg);
-}
-
+/* Media Queries */
 @media (max-width: 768px) {
   .faq-question {
     font-size: 18px;
-    padding: 18px;
+    padding: 20px;
   }
-
   .faq-answer {
-    font-size: 16px;
-    padding: 18px;
+    font-size: 18px;
+    padding: 20px;
   }
 }
