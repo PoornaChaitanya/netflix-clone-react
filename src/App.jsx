@@ -10,6 +10,7 @@ const MyList = lazy(() => import("./pages/MyList/MyList"));
 const Category = lazy(() => import("./pages/Category/Category"));
 const Language = lazy(() => import("./pages/Language/Language"));
 const Landing = lazy(() => import("./pages/Landing/Landing"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 const App = () => {
   return (
@@ -73,7 +74,7 @@ const App = () => {
           }
         />
 
-        <Route path="*" element={<div>Page Not Found</div>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

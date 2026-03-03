@@ -24,12 +24,14 @@ const MyList = () => {
                     alt={movie.title}
                   />
                 </Link>
-                <button
-                  onClick={() => removeFromWatchlist(movie.id)}
-                  className="remove-btn"
-                >
-                  Remove
-                </button>
+                <div className="mylist-card-overlay">
+                  <button
+                    onClick={() => removeFromWatchlist(movie.id)}
+                    className="mylist-remove-btn"
+                  >
+                    ✕ Remove from My List
+                  </button>
+                </div>
               </div>
             ))}
           </div>

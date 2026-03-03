@@ -5,14 +5,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getMovieVideos, getMovieDetails } from "../../services/tmdb";
 import TitleCards from "../../components/TitleCards/TitleCards";
 import Navbar from "../../components/Navbar/Navbar";
+import { useWatchlist } from "../../context/WatchlistContext";
 
 const Player = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { watchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 
   const [videoData, setVideoData] = useState(null);
   const [metaData, setMetaData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const isInWatchlist = metaData && watchlist.some((m) => m.id === metaData.id);
+
+  const handleWatchlistToggle = () => {
+    if (!metaData) return;
+    if (isInWatchlist) {
+      removeFromWatchlist(metaData.id);
+    } else {
+      addToWatchlist(metaData);
+    }
+  };
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -104,6 +117,13 @@ const Player = () => {
                     {metaData.genres.map((g) => g.name).join(", ")}
                   </div>
                 )}
+
+                <button
+                  className={`watchlist-btn ${isInWatchlist ? "in-list" : ""}`}
+                  onClick={handleWatchlistToggle}
+                >
+                  {isInWatchlist ? "Added to My List" : "Add to My List"}
+                </button>
               </div>
             )}
           </>
@@ -111,9 +131,23 @@ const Player = () => {
       </div>
 
       <div className="more-like-this">
-        {metaData?.genres?.length > 0 && (
-          <TitleCards title="More Like This" category="popular" />
-        )}
+        {metaData?.genres?.length > 0 &&
+          (() => {
+            const genreId = metaData.genres[0]?.id;
+            // Map TMDB genre IDs to movie categories for relevant suggestions
+            const genreCategoryMap = {
+              28: "top_rated", // Action
+              53: "top_rated", // Thriller
+              35: "now_playing", // Comedy
+              18: "now_playing", // Drama
+              16: "upcoming", // Animation
+              10751: "upcoming", // Family
+            };
+            const relatedCategory = genreCategoryMap[genreId] || "popular";
+            return (
+              <TitleCards title="More Like This" category={relatedCategory} />
+            );
+          })()}
       </div>
     </div>
   );

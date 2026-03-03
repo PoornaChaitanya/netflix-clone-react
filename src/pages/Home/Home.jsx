@@ -49,7 +49,10 @@ const Home = () => {
                   <img src={play_icon} alt="play icon" />
                   Play
                 </button>
-                <button className="btn dark-btn">
+                <button
+                  className="btn dark-btn"
+                  onClick={() => navigate(`/player/${heroMovie.id}`)}
+                >
                   <img src={info_icon} alt="info icon" />
                   More Info
                 </button>
