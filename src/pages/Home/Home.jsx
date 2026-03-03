@@ -13,7 +13,7 @@ const SLIDE_INTERVAL = 7000;
 const Home = () => {
   const [heroMovies, setHeroMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fade, setFade] = useState(true);
+  const [fade, setFade] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +22,8 @@ const Home = () => {
         if (res?.results?.length > 0) {
           const valid = res.results.filter((m) => m.backdrop_path).slice(0, 8);
           setHeroMovies(valid);
+          // 👈 Immediately show image once data is ready, suspense spinner handles the rest
+          setFade(true);
         }
       })
       .catch((err) => console.error("Failed to load hero movies:", err));
@@ -35,7 +37,6 @@ const Home = () => {
     }, 400);
   }, []);
 
-  // Auto-advance every SLIDE_INTERVAL ms
   useEffect(() => {
     if (heroMovies.length === 0) return;
     const timer = setInterval(() => {
@@ -55,15 +56,17 @@ const Home = () => {
       <Navbar />
 
       <div className="hero">
-        {heroMovie ? (
+        {heroMovie && (
           <>
             <img
               key={heroMovie.id}
               src={`https://image.tmdb.org/t/p/original${heroMovie.backdrop_path}`}
               alt={heroMovie.title}
-              className={`banner-img dynamic-banner hero-fade ${fade ? "visible" : ""}`}
+              className={`banner-img ${fade ? "visible" : ""}`}
+              loading="eager"
             />
-            <div className={`hero-caption hero-fade ${fade ? "visible" : ""}`}>
+
+            <div className={`hero-caption ${fade ? "visible" : ""}`}>
               <h1 className="caption-title">
                 {heroMovie.original_title || heroMovie.name || heroMovie.title}
               </h1>
@@ -99,8 +102,6 @@ const Home = () => {
               </div>
             )}
           </>
-        ) : (
-          <div className="hero-placeholder" />
         )}
       </div>
 

@@ -14,7 +14,13 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 const App = () => {
   return (
-    <Suspense fallback={<div className="page-loader" />}>
+    <Suspense
+      fallback={
+        <div className="pagelayer-loading">
+          <div className="spinner"></div>
+        </div>
+      }
+    >
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
