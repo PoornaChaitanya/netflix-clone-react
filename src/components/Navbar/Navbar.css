@@ -115,7 +115,8 @@
 
 /* Generalized Dropdown Styles */
 .lang-menu,
-.profile-dropdown {
+.profile-dropdown,
+.notifications-dropdown {
   position: absolute;
   top: calc(100% + 15px);
   background-color: rgba(0, 0, 0, 0.9);
@@ -145,10 +146,15 @@
   right: 0;
   min-width: 220px;
 }
+.notifications-dropdown {
+  right: -50px;
+  min-width: 320px;
+}
 
 /* Caret Arrow pointing up for dropdowns */
 .lang-menu::before,
-.profile-dropdown::before {
+.profile-dropdown::before,
+.notifications-dropdown::before {
   content: "";
   position: absolute;
   top: -8px;
@@ -157,7 +163,8 @@
   border-bottom: 8px solid rgba(255, 255, 255, 0.15);
 }
 .lang-menu::after,
-.profile-dropdown::after {
+.profile-dropdown::after,
+.notifications-dropdown::after {
   content: "";
   position: absolute;
   top: -7px;
@@ -174,10 +181,15 @@
 .profile-dropdown::after {
   right: 20px;
 }
+.notifications-dropdown::before,
+.notifications-dropdown::after {
+  right: 60px;
+}
 
 /* Visible state class */
 .lang-menu.visible,
-.profile-dropdown.visible {
+.profile-dropdown.visible,
+.notifications-dropdown.visible {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -249,6 +261,52 @@
   background-color: #e50914;
   border-radius: 50%;
   border: 1px solid #141414;
+}
+
+/* Notifications Internals */
+.notification-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.notification-img {
+  width: 48px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.notification-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notification-title {
+  font-weight: 500;
+  color: white;
+  font-size: 14px;
+  margin: 0;
+}
+
+.notification-desc {
+  color: #b3b3b3;
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification-time {
+  color: #808080;
+  font-size: 11px;
+  margin: 0;
 }
 
 /* Profile Section */

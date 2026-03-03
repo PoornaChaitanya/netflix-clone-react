@@ -13,6 +13,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +23,7 @@ const Navbar = () => {
   const langRef = useRef(null);
   const profileRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const notificationsRef = useRef(null);
 
   // Handle Scroll Transparency
   useEffect(() => {
@@ -41,6 +43,12 @@ const Navbar = () => {
       }
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setProfileDropdownOpen(false);
+      }
+      if (
+        notificationsRef.current &&
+        !notificationsRef.current.contains(event.target)
+      ) {
+        setNotificationsOpen(false);
       }
       if (
         isMobileMenuOpen &&
@@ -180,13 +188,60 @@ const Navbar = () => {
             <img src={search_icon} alt="search" className="icons" />
           </button>
 
-          <button
-            className="icon-btn notification-btn"
-            aria-label="Notifications"
+          {/* Notifications Dropdown */}
+          <div
+            className="navbar-profile"
+            ref={notificationsRef}
+            onMouseEnter={() =>
+              window.innerWidth > 768 && setNotificationsOpen(true)
+            }
+            onMouseLeave={() =>
+              window.innerWidth > 768 && setNotificationsOpen(false)
+            }
+            onClick={() => setNotificationsOpen(!notificationsOpen)}
           >
-            <img src={bell_icon} alt="notifications" className="icons" />
-            <span className="notification-dot"></span>
-          </button>
+            <button
+              className="icon-btn notification-btn"
+              aria-label="Notifications"
+            >
+              <img src={bell_icon} alt="notifications" className="icons" />
+              <span className="notification-dot"></span>
+            </button>
+
+            <div
+              className={`notifications-dropdown ${notificationsOpen ? "visible" : ""}`}
+            >
+              <div className="notification-item">
+                <img
+                  src={logo}
+                  alt="Netflix Logo"
+                  className="notification-img"
+                />
+                <div className="notification-text">
+                  <p className="notification-title">New Arrival</p>
+                  <p className="notification-desc">
+                    Stranger Things Season 5 is now available to watch!
+                  </p>
+                  <p className="notification-time">2 hours ago</p>
+                </div>
+              </div>
+              <div className="dropdown-divider"></div>
+              <div className="notification-item">
+                <img
+                  src={logo}
+                  alt="Netflix Logo"
+                  className="notification-img"
+                />
+                <div className="notification-text">
+                  <p className="notification-title">Recommendation</p>
+                  <p className="notification-desc">
+                    Based on your activity, we think you'll love The Witcher.
+                  </p>
+                  <p className="notification-time">1 day ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Profile Dropdown */}
           <div
