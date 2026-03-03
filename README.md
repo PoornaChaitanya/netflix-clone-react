@@ -10,7 +10,7 @@ It simulates a real-world movie streaming platform interface with category-based
 
 ## 🚀 Live Demo
 
-🔗 https://your-netflix-clone-link.vercel.app/  
+🔗 https://movie-streaming-app-react.vercel.app/
 🔗 https://github.com/PoornaChaitanya/netflix-clone-react
 
 ---
