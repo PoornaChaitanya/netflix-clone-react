@@ -22,7 +22,8 @@ const Language = () => {
   const [loading, setLoading] = useState(true);
 
   // Get full language name or default to the code (uppercase)
-  const fullLanguageName = languageNames[lang.toLowerCase()] || lang.toUpperCase();
+  const fullLanguageName =
+    languageNames[lang.toLowerCase()] || lang.toUpperCase();
 
   useEffect(() => {
     // Scroll to top when language route changes
@@ -32,7 +33,9 @@ const Language = () => {
     getByLanguage(lang)
       .then((res) => {
         // Filter out items without a backdrop image for a cleaner UI
-        const validResults = (res.results || []).filter(item => item.backdrop_path);
+        const validResults = (res.results || []).filter(
+          (item) => item.backdrop_path,
+        );
         setData(validResults);
       })
       .catch((err) => {
@@ -53,44 +56,47 @@ const Language = () => {
       <div className="category-hero">
         <div className="hero-content">
           <h1>{fullLanguageName} Movies & TV</h1>
-          <p>Explore the best international and local hits in {fullLanguageName}.</p>
+          <p>
+            Explore the best international and local hits in {fullLanguageName}.
+          </p>
         </div>
       </div>
 
       <div className="category-container">
         <div className="category-grid">
-          {loading ? (
-            // Render Skeleton Loaders
-            skeletonCards.map((_, index) => (
-              <div key={`skeleton-${index}`} className="category-card skeleton-card">
-                <div className="skeleton-image"></div>
-              </div>
-            ))
-          ) : (
-            // Render Actual Cards
-            data.map((item) => (
-              <Link
-                key={item.id}
-                to={`/player/${item.id}`}
-                className="category-card"
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
-                  alt={item.title || item.name}
-                  loading="lazy"
-                />
+          {loading
+            ? // Render Skeleton Loaders
+              skeletonCards.map((_, index) => (
+                <div
+                  key={`skeleton-${index}`}
+                  className="category-card skeleton-card"
+                >
+                  <div className="skeleton-image"></div>
+                </div>
+              ))
+            : // Render Actual Cards
+              data.map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/player/movie/${item.id}`}
+                  className="category-card"
+                >
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                    alt={item.title || item.name}
+                    loading="lazy"
+                  />
 
-                <div className="category-overlay">
-                  <div className="overlay-content">
-                    <h4>{item.title || item.name}</h4>
-                    <div className="play-icon-container">
-                      <img src={play_icon} alt="Play" />
+                  <div className="category-overlay">
+                    <div className="overlay-content">
+                      <h4>{item.title || item.name}</h4>
+                      <div className="play-icon-container">
+                        <img src={play_icon} alt="Play" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))
-          )}
+                </Link>
+              ))}
         </div>
 
         {!loading && data.length === 0 && (

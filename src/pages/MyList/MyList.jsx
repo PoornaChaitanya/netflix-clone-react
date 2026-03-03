@@ -18,7 +18,7 @@ const MyList = () => {
           <div className="mylist-grid">
             {watchlist.map((movie) => (
               <div key={movie.id} className="mylist-card">
-                <Link to={`/player/${movie.id}`}>
+                <Link to={`/player/${movie.media_type || "movie"}/${movie.id}`}>
                   <img
                     src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}
                     alt={movie.title}

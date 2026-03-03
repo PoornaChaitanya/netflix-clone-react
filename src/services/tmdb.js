@@ -32,6 +32,11 @@ export const getMovieVideos = (id) =>
 export const getMovieDetails = (id) =>
   fetchFromTMDB(`movie/${id}?language=en-US`);
 
+export const getTVVideos = (id) =>
+  fetchFromTMDB(`tv/${id}/videos?language=en-US`);
+
+export const getTVDetails = (id) => fetchFromTMDB(`tv/${id}?language=en-US`);
+
 export const searchMovies = (query) =>
   fetchFromTMDB(`search/movie?query=${query}&language=en-US&page=1`);
 

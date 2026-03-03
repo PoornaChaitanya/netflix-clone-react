@@ -94,6 +94,15 @@
   color: white;
 }
 
+.tv-badge {
+  border: 1px solid #4a9eff;
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #4a9eff;
+  font-weight: 600;
+}
+
 .movie-overview {
   font-size: 1.15rem;
   line-height: 1.6;

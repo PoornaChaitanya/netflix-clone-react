@@ -76,7 +76,7 @@ const Search = () => {
                   movie.backdrop_path && (
                     <Link
                       key={movie.id}
-                      to={`/player/${movie.id}`}
+                      to={`/player/movie/${movie.id}`}
                       className="search-card"
                     >
                       <img

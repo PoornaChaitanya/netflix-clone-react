@@ -85,7 +85,7 @@ const Category = () => {
               data.map((item) => (
                 <Link
                   key={item.id}
-                  to={`/player/${item.id}`}
+                  to={`/player/${apiType}/${item.id}`}
                   className="category-card"
                 >
                   <img

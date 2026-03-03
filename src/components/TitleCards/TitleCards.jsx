@@ -69,7 +69,7 @@ const TitleCards = ({ title, category }) => {
               (card) =>
                 card.backdrop_path && (
                   <div className="card-wrapper" key={card.id}>
-                    <Link to={`/player/${card.id}`} className="card">
+                    <Link to={`/player/movie/${card.id}`} className="card">
                       <img
                         loading="lazy"
                         src={`https://image.tmdb.org/t/p/w300${card.backdrop_path}`}

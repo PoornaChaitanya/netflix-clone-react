@@ -29,7 +29,7 @@ const App = () => {
         />
 
         <Route
-          path="/player/:id"
+          path="/player/:type/:id"
           element={
             <ProtectedRoute>
               <Player />
