@@ -23,8 +23,8 @@ const fetchFromTMDB = async (endpoint) => {
 export const getMoviesByCategory = (category) =>
   fetchFromTMDB(`movie/${category}?language=en-US&page=1`);
 
-export const getByTypeAndCategory = (type, category) =>
-  fetchFromTMDB(`${type}/${category}?language=en-US&page=1`);
+export const getByTypeAndCategory = (type, category, page = 1) =>
+  fetchFromTMDB(`${type}/${category}?language=en-US&page=${page}`);
 
 export const getMovieVideos = (id) =>
   fetchFromTMDB(`movie/${id}/videos?language=en-US`);
@@ -37,12 +37,19 @@ export const getTVVideos = (id) =>
 
 export const getTVDetails = (id) => fetchFromTMDB(`tv/${id}?language=en-US`);
 
-export const searchMovies = (query) =>
-  fetchFromTMDB(`search/movie?query=${query}&language=en-US&page=1`);
-
-export const getByLanguage = (lang) =>
+export const searchMulti = (query, page = 1) =>
   fetchFromTMDB(
-    `discover/movie?with_original_language=${lang}&language=en-US&page=1`,
+    `search/multi?query=${encodeURIComponent(query)}&language=en-US&page=${page}&include_adult=false`,
+  );
+
+export const searchMovies = (query) =>
+  fetchFromTMDB(
+    `search/movie?query=${encodeURIComponent(query)}&language=en-US&page=1`,
+  );
+
+export const getByLanguage = (lang, page = 1) =>
+  fetchFromTMDB(
+    `discover/movie?with_original_language=${lang}&language=en-US&page=${page}`,
   );
 
 export const getTrendingMovies = () => fetchFromTMDB("trending/movie/week");

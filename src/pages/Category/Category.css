@@ -166,6 +166,38 @@
   color: #808080;
 }
 
+/* Load More */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.load-more-btn {
+  padding: 12px 48px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.load-more-btn:hover:not(:disabled) {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* ================= MEDIA QUERIES ================= */
 @media (max-width: 1024px) {
   .category-grid {

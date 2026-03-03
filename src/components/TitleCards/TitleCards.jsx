@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./TitleCards.css";
 import { Link } from "react-router-dom";
 import { getMoviesByCategory } from "../../services/tmdb";
-import { useWatchlist } from "../../context/WatchlistContext";
+import play_icon from "../../assets/play_icon.png";
 
 const TitleCards = ({ title, category }) => {
   const [apiData, setApiData] = useState([]);
@@ -10,7 +10,6 @@ const TitleCards = ({ title, category }) => {
   const [error, setError] = useState(false);
 
   const cardsRef = useRef(null);
-  const { addToWatchlist } = useWatchlist();
 
   const handleScroll = (direction) => {
     if (cardsRef.current) {
@@ -25,7 +24,7 @@ const TitleCards = ({ title, category }) => {
 
     getMoviesByCategory(category || "now_playing")
       .then((res) => {
-        setApiData(res.results || []);
+        setApiData((res.results || []).filter((m) => m.backdrop_path));
         setLoading(false);
       })
       .catch(() => {
@@ -36,11 +35,12 @@ const TitleCards = ({ title, category }) => {
 
   return (
     <div className="title-cards">
-      <h2>{title || "Popular on Netflix"}</h2>
+      <h2>{title || "Popular on StreamVerse"}</h2>
 
       <div className="card-list-container">
         <button
           className="scroll-btn scroll-left"
+          aria-label="Scroll left"
           onClick={() => handleScroll("left")}
         >
           &#10094;
@@ -51,40 +51,45 @@ const TitleCards = ({ title, category }) => {
           ref={cardsRef}
           onWheel={(e) => {
             e.preventDefault();
-            if (cardsRef.current) {
-              cardsRef.current.scrollLeft += e.deltaY;
-            }
+            if (cardsRef.current) cardsRef.current.scrollLeft += e.deltaY;
           }}
         >
           {loading &&
-            Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="skeleton-card" />
+            Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="tc-card tc-skeleton" />
             ))}
 
-          {error && <p className="error-text">Failed to load movies.</p>}
+          {error && <p className="error-text">Failed to load content.</p>}
 
           {!loading &&
             !error &&
-            apiData.map(
-              (card) =>
-                card.backdrop_path && (
-                  <div className="card-wrapper" key={card.id}>
-                    <Link to={`/player/movie/${card.id}`} className="card">
-                      <img
-                        loading="lazy"
-                        src={`https://image.tmdb.org/t/p/w300${card.backdrop_path}`}
-                        alt={card.original_title}
-                      />
-                      <div className="card-overlay"></div>
-                      <p>{card.original_title}</p>
-                    </Link>
+            apiData.map((card) => (
+              <Link
+                key={card.id}
+                to={`/player/movie/${card.id}`}
+                className="tc-card"
+              >
+                <img
+                  loading="lazy"
+                  src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`}
+                  alt={card.title || card.original_title}
+                />
+                {/* Same overlay structure as category-card */}
+                <div className="tc-overlay">
+                  <div className="tc-overlay-content">
+                    <h4>{card.title || card.original_title}</h4>
+                    <div className="tc-play-btn">
+                      <img src={play_icon} alt="Play" />
+                    </div>
                   </div>
-                ),
-            )}
+                </div>
+              </Link>
+            ))}
         </div>
 
         <button
           className="scroll-btn scroll-right"
+          aria-label="Scroll right"
           onClick={() => handleScroll("right")}
         >
           &#10095;
