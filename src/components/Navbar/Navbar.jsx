@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
 import search_icon from "../../assets/search_icon.svg";
@@ -9,125 +9,292 @@ import caret_icon from "../../assets/caret_icon.svg";
 import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const navRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
   const { logout } = useAuth();
 
+  // Refs to handle click outside
+  const langRef = useRef(null);
+  const profileRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+
+  // Handle Scroll Transparency
   useEffect(() => {
     const handleScroll = () => {
-      if (!navRef.current) return;
-
-      navRef.current.classList.toggle("nav-dark", window.scrollY >= 80);
+      setIsScrolled(window.scrollY >= 60);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle Click Outside Dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setLangDropdownOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target) &&
+        !event.target.closest(".hamburger-btn")
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  const navLinks = [
+    { name: "Home", path: "/home" },
+    { name: "Shows", path: "/category/tv" },
+    { name: "Movies", path: "/category/movies" },
+    { name: "New & Popular", path: "/category/new" },
+    { name: "My List", path: "/my-list" },
+  ];
+
   return (
-    <nav ref={navRef} className="navbar">
-      {/* LEFT SIDE */}
-      <div className="navbar-left">
-        <img
-          src={logo}
-          alt="Netflix logo"
-          className="logo"
-          onClick={() => navigate("/home")}
-        />
-
-        <ul>
-          <li>
-            <NavLink
-              to="/home"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/category/tv"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Shows
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/category/movies"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Movies
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/category/new"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              New & Popular
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/my-list"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              My List
-            </NavLink>
-          </li>
-
-          {/* Language Dropdown */}
-          <li className="language-dropdown">
-            <span>Browse by Language</span>
-            <div className="language-menu">
-              <button onClick={() => navigate("/language/en")}>English</button>
-              <button onClick={() => navigate("/language/hi")}>Hindi</button>
-              <button onClick={() => navigate("/language/te")}>Telugu</button>
+    <nav className={`navbar ${isScrolled ? "nav-dark" : "nav-transparent"}`}>
+      <div className="navbar-container">
+        {/* =============== LEFT =============== */}
+        <div className="navbar-left">
+          {/* Hamburger Menu Button (Mobile Only) */}
+          <button
+            className="hamburger-btn"
+            aria-label="Toggle Navigation"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <div className={`hamburger-icon ${isMobileMenuOpen ? "open" : ""}`}>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
-          </li>
-        </ul>
-      </div>
+          </button>
 
-      {/* RIGHT SIDE */}
-      <div className="navbar-right">
-        <img
-          src={search_icon}
-          alt="search"
-          className="icons"
-          onClick={() => navigate("/search")}
-        />
+          <img
+            src={logo}
+            alt="Netflix logo"
+            className="logo"
+            onClick={() => navigate("/home")}
+            aria-hidden="true"
+          />
 
-        <img src={bell_icon} alt="notifications" className="icons" />
+          {/* Desktop Navigation Links */}
+          <ul className="desktop-menu">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                <NavLink
+                  to={link.path}
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              </li>
+            ))}
 
-        <div className="navbar-profile">
-          <img src={profile_img} alt="profile" className="profile" />
-          <img src={caret_icon} alt="caret" />
+            {/* Language Dropdown */}
+            <li
+              className="language-dropdown-container"
+              ref={langRef}
+              onMouseEnter={() =>
+                window.innerWidth > 768 && setLangDropdownOpen(true)
+              }
+              onMouseLeave={() =>
+                window.innerWidth > 768 && setLangDropdownOpen(false)
+              }
+            >
+              <button
+                className="language-btn"
+                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                aria-expanded={langDropdownOpen}
+                aria-haspopup="true"
+              >
+                Languages
+                <img
+                  src={caret_icon}
+                  alt=""
+                  className={`caret-icon ${langDropdownOpen ? "rotated" : ""}`}
+                />
+              </button>
 
-          <div className="dropdown">
-            <button onClick={handleLogout}>Sign Out</button>
+              <div className={`lang-menu ${langDropdownOpen ? "visible" : ""}`}>
+                <button
+                  onClick={() => {
+                    navigate("/language/en");
+                    setLangDropdownOpen(false);
+                  }}
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => {
+                    navigate("/language/hi");
+                    setLangDropdownOpen(false);
+                  }}
+                >
+                  Hindi
+                </button>
+                <button
+                  onClick={() => {
+                    navigate("/language/te");
+                    setLangDropdownOpen(false);
+                  }}
+                >
+                  Telugu
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        {/* =============== RIGHT =============== */}
+        <div className="navbar-right">
+          <button
+            className="icon-btn"
+            aria-label="Search"
+            onClick={() => navigate("/search")}
+          >
+            <img src={search_icon} alt="search" className="icons" />
+          </button>
+
+          <button
+            className="icon-btn notification-btn"
+            aria-label="Notifications"
+          >
+            <img src={bell_icon} alt="notifications" className="icons" />
+            <span className="notification-dot"></span>
+          </button>
+
+          {/* Profile Dropdown */}
+          <div
+            className="navbar-profile"
+            ref={profileRef}
+            onMouseEnter={() =>
+              window.innerWidth > 768 && setProfileDropdownOpen(true)
+            }
+            onMouseLeave={() =>
+              window.innerWidth > 768 && setProfileDropdownOpen(false)
+            }
+            onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+          >
+            <img src={profile_img} alt="profile avatar" className="profile" />
+            <img
+              src={caret_icon}
+              alt=""
+              className={`caret-icon ${profileDropdownOpen ? "rotated" : ""}`}
+            />
+
+            <div
+              className={`profile-dropdown ${profileDropdownOpen ? "visible" : ""}`}
+            >
+              <div className="profile-dropdown-header">
+                <img src={profile_img} alt="" className="profile-small" />
+                <span>User Account</span>
+              </div>
+              <div className="dropdown-divider"></div>
+              <button onClick={() => navigate("/home")}>Manage Profiles</button>
+              <button onClick={() => navigate("/home")}>Account</button>
+              <button onClick={() => navigate("/home")}>Help Center</button>
+              <div className="dropdown-divider"></div>
+              <button onClick={handleLogout} className="sign-out-btn">
+                Sign out of Netflix
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* =============== MOBILE MENU SIDEBAR =============== */}
+      <div
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? "visible" : ""}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      ></div>
+
+      <aside
+        ref={mobileMenuRef}
+        className={`mobile-menu ${isMobileMenuOpen ? "open" : ""}`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div className="mobile-menu-header">
+          <div className="mobile-profile-info">
+            <img src={profile_img} alt="" className="profile-mobile" />
+            <div className="mobile-profile-text">
+              <span className="user-name">User Account</span>
+              <span className="switch-profile">Switch Profiles</span>
+            </div>
+          </div>
+        </div>
+
+        <ul className="mobile-nav-links">
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <NavLink
+                to={link.path}
+                className={({ isActive }) =>
+                  isActive ? "mobile-nav-link active" : "mobile-nav-link"
+                }
+              >
+                {link.name}
+              </NavLink>
+            </li>
+          ))}
+          <li className="mobile-divider"></li>
+          <li className="mobile-section-title">Languages</li>
+          <li>
+            <button
+              className="mobile-nav-button"
+              onClick={() => navigate("/language/en")}
+            >
+              English
+            </button>
+          </li>
+          <li>
+            <button
+              className="mobile-nav-button"
+              onClick={() => navigate("/language/hi")}
+            >
+              Hindi
+            </button>
+          </li>
+          <li>
+            <button
+              className="mobile-nav-button"
+              onClick={() => navigate("/language/te")}
+            >
+              Telugu
+            </button>
+          </li>
+        </ul>
+
+        <div className="mobile-menu-footer">
+          <button onClick={handleLogout} className="mobile-sign-out">
+            Sign Out
+          </button>
+        </div>
+      </aside>
     </nav>
   );
 };

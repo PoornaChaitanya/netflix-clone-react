@@ -1,56 +1,212 @@
 .category-page {
   min-height: 100vh;
-  background: #141414;
+  background-color: #141414;
   color: white;
+  padding-bottom: 50px;
 }
 
+/* ================= HERO SECTION ================= */
+.category-hero {
+  padding: 140px 6% 40px;
+  background: linear-gradient(0deg, #141414 0%, rgba(20, 20, 20, 0.4) 100%);
+}
+
+.hero-content h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content p {
+  font-size: 16px;
+  color: #b3b3b3;
+  max-width: 600px;
+}
+
+/* ================= GRID CONTAINER ================= */
 .category-container {
-  padding: 120px 60px;
-}
-
-.category-container h1 {
-  margin-bottom: 30px;
-  font-size: 28px;
+  padding: 0 6% 60px;
 }
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  /* Auto-fill the grid. Minimum width 260px, stretches to fill */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  row-gap: 40px;
+  column-gap: 20px;
+  margin-top: 20px;
 }
 
+/* ================= CATEGORY CARD ================= */
 .category-card {
   position: relative;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.category-card,
-.category-card:visited,
-.category-card:active {
-  color: white;
+  display: block;
   text-decoration: none;
+  color: white;
+  aspect-ratio: 16 / 9;
+  background-color: #222;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s ease;
+  z-index: 1;
 }
 
 .category-card img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  border-radius: 6px;
 }
 
 .category-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.08); /* Stronger scale effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+  z-index: 10;
 }
 
+/* Overlay & Text Details */
 .category-overlay {
   position: absolute;
-  bottom: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 10px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    transparent 100%
+  );
+  opacity: 0; /* Hidden by default */
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 15px;
+  transition: opacity 0.3s ease;
 }
 
-.category-overlay h4 {
-  font-size: 14px;
+.category-card:hover .category-overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay-content h4 {
+  font-size: 16px;
+  font-weight: 500;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  /* Truncate long titles */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 15px;
+}
+
+.play-icon-container {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.play-icon-container img {
+  width: 14px;
+  height: auto;
+  margin-left: 2px; /* Visual center adjustment for play icon */
+  filter: brightness(0); /* Make black */
+}
+
+.category-card:hover .play-icon-container:hover {
+  background-color: white;
+  transform: scale(1.1);
+}
+
+/* ================= SKELETON LOADER ================= */
+.skeleton-card {
+  pointer-events: none; /* Can't click skeletons */
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #2a2a2a 25%, #3f3f3f 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ================= ERROR / NO RESULTS ================= */
+.no-results {
+  text-align: center;
+  padding: 60px 0;
+  color: #808080;
+}
+
+/* ================= MEDIA QUERIES ================= */
+@media (max-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .category-hero {
+    padding: 100px 5% 30px;
+  }
+
+  .category-container {
+    padding: 0 5% 40px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+  }
+
+  /* Show minimal overlay on mobile since there is no hover */
+  .category-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 60%);
+    padding: 10px;
+  }
+
+  .play-icon-container {
+    display: none; /* Hide play icon on mobile cards to save space */
+  }
+
+  .overlay-content h4 {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-grid {
+    /* 2 columns on very small screens */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 }
