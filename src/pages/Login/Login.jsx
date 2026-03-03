@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import "./Login.css";
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import netflix_spinner from "../../assets/netflix_spinner.gif";
 import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
