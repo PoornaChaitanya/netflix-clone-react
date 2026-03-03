@@ -102,7 +102,7 @@ const Navbar = () => {
 
           <img
             src={logo}
-            alt="Netflix logo"
+            alt="StreamVerse logo"
             className="logo"
             onClick={() => navigate("/home")}
             aria-hidden="true"
@@ -214,7 +214,7 @@ const Navbar = () => {
               <div className="notification-item">
                 <img
                   src={logo}
-                  alt="Netflix Logo"
+                  alt="StreamVerse Logo"
                   className="notification-img"
                 />
                 <div className="notification-text">
@@ -229,7 +229,7 @@ const Navbar = () => {
               <div className="notification-item">
                 <img
                   src={logo}
-                  alt="Netflix Logo"
+                  alt="StreamVerse Logo"
                   className="notification-img"
                 />
                 <div className="notification-text">
@@ -275,7 +275,7 @@ const Navbar = () => {
               <button onClick={() => navigate("/home")}>Help Center</button>
               <div className="dropdown-divider"></div>
               <button onClick={handleLogout} className="sign-out-btn">
-                Sign out of Netflix
+                Sign out of StreamVerse
               </button>
             </div>
           </div>

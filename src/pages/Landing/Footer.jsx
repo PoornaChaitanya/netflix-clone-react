@@ -3,7 +3,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="landing-footer container">
-      <p>Questions? Call 000-800-919-1743</p>
+      <p>This is a frontend portfolio project built for learning purposes.</p>
 
       <div className="footer-grid">
         <div>
@@ -22,7 +22,7 @@ const Footer = () => {
           <a>Account</a>
           <a>Ways to Watch</a>
           <a>Corporate Information</a>
-          <a>Only on Netflix</a>
+          <a>Only on StreamVerse</a>
         </div>
         <div>
           <a>Media Centre</a>
@@ -35,7 +35,7 @@ const Footer = () => {
         <option>English</option>
       </select>
 
-      <p className="country">Netflix India</p>
+      <p className="country">StreamVerse India</p>
     </footer>
   );
 };
