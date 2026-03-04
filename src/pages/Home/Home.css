@@ -148,6 +148,11 @@
 @media (max-width: 1024px) {
   .hero {
     height: 70vh;
+    min-height: 500px;
+  }
+
+  .hero-caption {
+    bottom: 120px;
   }
 
   .hero-caption p {
@@ -160,34 +165,49 @@
   .caption-title {
     font-size: 2.5rem;
   }
+
+  .hero-dots {
+    bottom: 90px;
+  }
 }
 
 @media (max-width: 768px) {
   .hero {
     height: 60vh;
+    min-height: 450px;
+    margin-bottom: -40px;
   }
   .hero-caption {
     padding-left: 4%;
-    bottom: 100px;
+    bottom: 90px;
   }
   .caption-title {
     font-size: 2rem;
+    margin-bottom: 15px;
   }
   .hero-caption p {
     display: none;
   }
+  .hero-btns {
+    margin-bottom: 30px;
+  }
   .more-cards {
     padding-left: 4%;
-    margin-top: -70px;
+    margin-top: -60px;
+  }
+  .hero-dots {
+    bottom: 60px;
+    right: 4%;
   }
 }
 
 @media (max-width: 480px) {
   .hero {
     height: 55vh;
+    min-height: 400px;
   }
   .hero-caption {
-    bottom: 50px;
+    bottom: 70px;
   }
   .caption-title {
     font-size: 1.5rem;
@@ -201,7 +221,19 @@
     padding: 6px 12px;
     font-size: 13px;
   }
+  .hero-btns .btn img {
+    width: 20px;
+  }
   .more-cards {
-    margin-top: -30px;
+    margin-top: -40px;
+  }
+  .hero-dots {
+    bottom: 40px;
+    gap: 6px;
+  }
+  .hero-dot {
+    width: 8px;
+    height: 8px;
+    border-width: 1px;
   }
 }

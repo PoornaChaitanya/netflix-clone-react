@@ -62,7 +62,7 @@
 }
 
 .category-card:hover {
-  transform: scale(1.08); /* Stronger scale effect */
+  transform: scale(1.08);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
   z-index: 10;
 }
@@ -226,7 +226,7 @@
   }
 
   .play-icon-container {
-    display: none; /* Hide play icon on mobile cards to save space */
+    display: none;
   }
 
   .overlay-content h4 {
@@ -236,7 +236,6 @@
 
 @media (max-width: 480px) {
   .category-grid {
-    /* 2 columns on very small screens */
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
