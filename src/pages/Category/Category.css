@@ -232,11 +232,26 @@
   .overlay-content h4 {
     font-size: 14px;
   }
+
+  .load-more-btn {
+    padding: 10px 32px;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 480px) {
   .category-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+
+  .load-more-container {
+    margin-top: 30px;
+  }
+
+  .load-more-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
   }
 }

@@ -11,6 +11,7 @@ const Category = lazy(() => import("./pages/Category/Category"));
 const Language = lazy(() => import("./pages/Language/Language"));
 const Landing = lazy(() => import("./pages/Landing/Landing"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+const HelpCenter = lazy(() => import("./pages/HelpCenter/HelpCenter"));
 
 const App = () => {
   return (
@@ -76,6 +77,15 @@ const App = () => {
           element={
             <ProtectedRoute>
               <MyList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/help"
+          element={
+            <ProtectedRoute>
+              <HelpCenter />
             </ProtectedRoute>
           }
         />

@@ -272,7 +272,7 @@ const Navbar = () => {
               <div className="dropdown-divider"></div>
               <button onClick={() => navigate("/home")}>Manage Profiles</button>
               <button onClick={() => navigate("/home")}>Account</button>
-              <button onClick={() => navigate("/home")}>Help Center</button>
+              <button onClick={() => navigate("/help")}>Help Center</button>
               <div className="dropdown-divider"></div>
               <button onClick={handleLogout} className="sign-out-btn">
                 Sign out of StreamVerse

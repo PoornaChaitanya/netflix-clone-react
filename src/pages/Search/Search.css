@@ -176,11 +176,24 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
   }
+
+  .load-more-btn {
+    padding: 10px 32px;
+    font-size: 14px;
+    margin-top: 30px;
+  }
 }
 
 @media (max-width: 480px) {
   .search-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+
+  .load-more-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 20px;
   }
 }

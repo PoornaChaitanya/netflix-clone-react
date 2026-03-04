@@ -1,0 +1,371 @@
+/* Help Center Global Layout */
+.help-center-page {
+  background-color: #fff;
+  color: #333;
+  font-family: "Netflix Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.help-header {
+  background-color: #fff;
+  padding: 15px 4%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.help-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.help-logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.help-logo {
+  height: 28px;
+}
+
+.help-logo-separator {
+  color: #ccc;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.help-logo-text {
+  color: #222;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+.help-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.help-join-btn {
+  background-color: transparent;
+  color: #222;
+  border: 1px solid #b3b3b3;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.2s ease;
+}
+
+.help-join-btn:hover {
+  background-color: #f3f3f3;
+}
+
+.help-signin-btn {
+  background-color: #e50914;
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.help-signin-btn:hover {
+  background-color: #f40612;
+}
+
+/* Hero Section */
+.help-hero {
+  background-color: #fff;
+  padding: 80px 4% 40px;
+  text-align: center;
+}
+
+.help-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.help-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.help-search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #8c8c8c;
+  border-radius: 2px;
+  padding: 12px 15px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.help-search-box:focus-within {
+  border-color: #0071ae;
+  box-shadow: inset 0 0 0 1px #0071ae;
+}
+
+.help-search-box .search-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  margin-right: 15px;
+}
+
+.help-search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
+}
+
+.help-search-box input::placeholder {
+  color: #666;
+}
+
+.help-popular-topics {
+  font-size: 0.9rem;
+  color: #333;
+  max-width: 650px;
+  margin: 30px auto 0;
+}
+
+.help-popular-topics strong {
+  font-weight: 700;
+}
+
+.help-popular-topics a {
+  color: #666;
+  text-decoration: underline;
+}
+
+.help-popular-topics a:hover {
+  color: #000;
+}
+
+.help-explore-topics {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.help-explore-topics .explore-arrow {
+  width: 20px;
+  height: auto;
+}
+
+/* Main Vertial Card Area */
+.help-main {
+  flex: 1;
+  padding: 0 4% 60px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.help-vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.help-topic-card {
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.help-topic-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e6e6e6;
+  background-color: #fff;
+}
+
+.topic-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.help-topic-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+.help-topic-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.help-topic-item:last-child {
+  border-bottom: none;
+}
+
+.help-topic-item:hover {
+  background-color: #f9f9f9;
+}
+
+.help-topic-item h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.chevron {
+  width: 18px;
+  height: 18px;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.chevron.expanded {
+  transform: rotate(180deg);
+}
+
+.help-topic-content {
+  padding: 15px 20px 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.help-topic-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.help-topic-content li {
+  margin-bottom: 12px;
+}
+
+.help-topic-content li:last-child {
+  margin-bottom: 0;
+}
+
+.help-topic-content a {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.help-topic-content a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.help-footer {
+  background-color: #f3f3f3;
+  padding: 40px 4%;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 40px;
+}
+
+.help-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.help-footer-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.help-footer-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.help-footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .help-header-actions button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .help-logo-text {
+    font-size: 1rem;
+  }
+
+  .help-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .help-footer-links {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .help-join-btn {
+    display: none;
+  }
+
+  .help-logo-separator {
+    display: none;
+  }
+
+  .help-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .help-search-box input {
+    font-size: 1rem;
+  }
+
+  .help-popular-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
