@@ -70,7 +70,7 @@ html {
   animation: spin 1s ease-in-out infinite;
 }
 
-@keyframes page-spin {
+@keyframes spin {
   to {
     transform: rotate(360deg);
   }
