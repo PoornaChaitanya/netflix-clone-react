@@ -210,9 +210,9 @@
   }
   .tc-card,
   .tc-skeleton {
-    width: 160px;
+    width: 200px;
   }
-  .tc-play-btn{
+  .tc-play-btn {
     width: 20px;
     height: 20px;
   }
@@ -228,7 +228,7 @@
   }
   .tc-card,
   .tc-skeleton {
-    width: 130px;
+    width: 170px;
   }
   .scroll-btn {
     width: 28px;
