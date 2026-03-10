@@ -13,7 +13,8 @@ const fetchFromTMDB = async (endpoint) => {
   const res = await fetch(`${BASE_URL}/${endpoint}`, options);
 
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    const error = await res.json();
+    throw new Error(error.status_message);
   }
 
   return res.json();
